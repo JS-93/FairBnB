@@ -1,7 +1,7 @@
 from sqlalchemy_serializer import SerializerMixin
 from sqlalchemy.ext.associationproxy import association_proxy
 from sqlalchemy.ext.hybrid import hybrid_property
-from config import db
+from config import db, bcrypt
 
 # Models go here!
 
@@ -17,11 +17,24 @@ class User(db.Model, SerializerMixin):
 
     id = db.Column(db.Integer, primary_key = True)
     username = db.Column(db.String, unique = True, nullable = False)
-    password = db.Column(db.String, nullable = False)
+    _password_hash = db.Column(db.String)
     reviews = db.relationship('Review', backref='user', cascade='all, delete-orphan')
     bookings = db.relationship('Booking', backref='user', cascade='all, delete-orphan')
     wishlist = db.relationship('Rental', secondary=wishlist_table, back_populates='wishlist_users')
     serialize_rules=('-bookings.user', '-reviews.user',)
+
+    @hybrid_property
+    def password(self):
+        raise AttributeError('Cannot view password hashes.')
+    
+    @password.setter
+    def password(self, password):
+        self._password_hash = bcrypt.generate_password_hash(password.encode('utf-8')).decode('utf-8')
+   
+    def authenticate(self, password):
+        if not password:
+            return False
+        return bcrypt.check_password_hash(self._password_hash, password.encode('utf-8'))
 
     def __repr__(self):
         return f'<User {self.username}, ID {self.id}>'

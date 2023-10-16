@@ -18,9 +18,12 @@ def seed():
     db.session.query(User).delete()
     db.session.commit()
 
-    user1 = User(username= 'Bob', password='Doggo')
-    user2 = User(username="Jimmy", password='Catto')
-    user3 = User(username='Amy', password='Birdo')
+    user1 = User(username= 'Bob')
+    user2 = User(username="Jimmy")
+    user3 = User(username='Amy')
+    user1.password = 'password1234'
+    user2.password = 'dog459'
+    user3.password = 'sky72'
 
     db.session.add_all([user1, user2, user3])
     db.session.commit()
