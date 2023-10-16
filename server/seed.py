@@ -9,11 +9,9 @@ from datetime import datetime
 
 # Local imports
 from app import app
-from models import Booking, Review, wishlist_table, Rental, User, db
+from models import Booking, Rental, User, db
 def seed():
     db.session.query(Booking).delete()
-    db.session.query(Review).delete()
-    db.session.query(wishlist_table).delete()
     db.session.query(Rental).delete()
     db.session.query(User).delete()
     db.session.commit()
@@ -35,24 +33,19 @@ def seed():
     db.session.add_all([rental1, rental2, rental3])
     db.session.commit()
 
-    user1.wishlist.append(rental2)
-    user2.wishlist.append(rental3)
-    user3.wishlist.append(rental1)
+
 
     booking1 = Booking(user_id=user1.id, rental_id=rental3.id, start_date=datetime(2023, 10, 20), end_date=datetime(2023, 10, 23))
+    booking2 = Booking(user_id=user1.id, rental_id=rental2.id, start_date=datetime(2023, 10, 20), end_date=datetime(2023, 10, 23))
+    booking3 = Booking(user_id=user1.id, rental_id=rental1.id, start_date=datetime(2023, 10, 20), end_date=datetime(2023, 10, 23))
     
-    db.session.add(booking1)
+    
+
+    
+    db.session.add_all([booking1, booking2, booking3])
     db.session.commit()
 
 
-
-
-    review1 = Review(rating=4, comment="Very accommodating!", user_id=user1.id, rental_id=rental1.id)
-    review2 = Review(rating=2, comment="Could be much better..", user_id=user2.id, rental_id=rental2.id)
-
-    db.session.add_all([review1, review2])
-
-    db.session.commit()
 
 
 
