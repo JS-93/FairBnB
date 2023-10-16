@@ -21,7 +21,9 @@ class User(db.Model, SerializerMixin):
     reviews = db.relationship('Review', backref='user', cascade='all, delete-orphan')
     bookings = db.relationship('Booking', backref='user', cascade='all, delete-orphan')
     wishlist = db.relationship('Rental', secondary=wishlist_table, back_populates='wishlist_users')
-    serialize_rules=('-bookings.user', '-reviews.user',)
+
+
+    serialize_rules=('-bookings.user', '-reviews.user', '-wishlist',)
 
     @hybrid_property
     def password(self):
@@ -67,7 +69,7 @@ class Rental(db.Model, SerializerMixin):
     bookings = db.relationship('Booking', backref='rental', cascade='all, delete-orphan')
     wishlist_users = db.relationship('User', secondary=wishlist_table, back_populates='wishlist')
 
-    serialize_rules=('-bookings.rental', '-reviews.rental',)
+    serialize_rules=('-bookings.rental', '-reviews.rental', 'wishlist_users',)
 
     def __repr__(self):
         return f'<Rental {self.name}, ${self.price}/per night, {self.location}>'

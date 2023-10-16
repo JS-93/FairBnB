@@ -14,10 +14,12 @@ from models import *
 
 # Views go here!
 
-@app.route('/')
-def index():
-    return '<h1>Project Server</h1>'
+@app.before_request
+def check_if_logged_in():
+    pass
 
+
+# signup endpoint to create new user
 class Signup(Resource):
     def post(self):
         data = request.get_json()
@@ -37,6 +39,7 @@ class Signup(Resource):
 
         return {'message': 'User created successfully.'}, 201
 
+# login endpoint to create session if it's not already happending
 class Login(Resource):
     def post(self):
         data = request.get_json()
@@ -56,16 +59,36 @@ class Login(Resource):
         
         session['user_id'] = user.id
         return {'message': 'Logged in successfully.'}, 200
+# check session endpoint to make sure the user is still logged in
+class CheckSession(Resource):
+    def get(self):
+        user_id = session.get('user_id')
+        if not user_id:
+            return {}, 401
+        user = User.query.filter(User.id == user_id).first()
+        return user.to_dict(rules=('-bookings', '-wishlist', '-reviews',)), 200
 
+# logout endpoint to clear the session of the user
 class Logout(Resource):
     def get(self):
 
         session.clear()
         return {'message': 'Logged out successfully.'}, 200
     
+# quick endpoint check to see if userbyid works
+class UserById(Resource):
+    def get(self, id):
+        user = User.query.filter(User.id == id).first()
+        if not user:
+            return {'error': 'user not found'}, 404
+        return user.to_dict(rules=('-bookings', '-wishlist', '-reviews',)), 200
+    
+api.add_resource(UserById, '/users/<int:id>')
+api.add_resource(CheckSession, '/checksession')
 api.add_resource(Logout, '/logout')
 api.add_resource(Login, '/login')
 api.add_resource(Signup, '/signup')
+
 if __name__ == '__main__':
     app.run(port=5555, debug=True)
 
