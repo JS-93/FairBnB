@@ -38,7 +38,7 @@ class Signup(Resource):
             return {'message': 'Usernane already taken.'}, 400
         
         user = User(username=username)
-        user.password_hash = password
+        user.password = password
         
         db.session.add(user)
         db.session.commit()
