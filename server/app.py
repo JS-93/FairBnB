@@ -89,6 +89,13 @@ class UserById(Resource):
             return {'error': 'user not found'}, 404
         return user.to_dict(), 200
 # endpoint for getting all rentals for rental page
+
+class Users(Resource):
+    def get(self):
+        users = [user.to_dict() for user in User.query.all()]
+        return users, 200
+
+
 class Rentals(Resource):
     def get(self):
         rentals = [rental.to_dict(rules=('-bookings',)) for rental in Rental.query.all()]
