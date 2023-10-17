@@ -16,7 +16,13 @@ from models import *
 
 @app.before_request
 def check_if_logged_in():
-    pass
+    access = [
+        'signup',
+        'login',
+        'check_session'
+    ]
+    if request.endpoint not in access and (not session.get('user_id')):
+        return {'error': '401 unauthorized'}, 401
 
 
 # signup endpoint to create new user
@@ -32,7 +38,7 @@ class Signup(Resource):
             return {'message': 'Usernane already taken.'}, 400
         
         user = User(username=username)
-        user.password_hash = password
+        user.password = password
         
         db.session.add(user)
         db.session.commit()
@@ -66,7 +72,7 @@ class CheckSession(Resource):
         if not user_id:
             return {}, 401
         user = User.query.filter(User.id == user_id).first()
-        return user.to_dict(rules=('-bookings', '-wishlist', '-reviews',)), 200
+        return user.to_dict(rules=('-bookings',)), 200
 
 # logout endpoint to clear the session of the user
 class Logout(Resource):
@@ -81,10 +87,25 @@ class UserById(Resource):
         user = User.query.filter(User.id == id).first()
         if not user:
             return {'error': 'user not found'}, 404
-        return user.to_dict(rules=('-bookings', '-wishlist', '-reviews',)), 200
-    
+        return user.to_dict(), 200
+# endpoint for getting all rentals for rental page
+
+class Users(Resource):
+    def get(self):
+        users = [user.to_dict() for user in User.query.all()]
+        return users, 200
+
+
+class Rentals(Resource):
+    def get(self):
+        rentals = [rental.to_dict(rules=('-bookings',)) for rental in Rental.query.all()]
+        return rentals, 200
+
+
+api.add_resource(Rentals, '/rentals')    
 api.add_resource(UserById, '/users/<int:id>')
-api.add_resource(CheckSession, '/checksession')
+api.add_resource(Users, '/users')
+api.add_resource(CheckSession, '/check_session')
 api.add_resource(Logout, '/logout')
 api.add_resource(Login, '/login')
 api.add_resource(Signup, '/signup')
