@@ -23,7 +23,7 @@ const Signup = () => {
             })
             .then(resp => {
                 if (!resp.ok) {
-                    setError('Failed to sign up. Please try Again!')
+                    setError('Username already taken. Please try Again!')
                     console.error("Can't sign up")
                     
                 }

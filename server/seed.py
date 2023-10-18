@@ -36,7 +36,7 @@ def seed():
 
 
     booking1 = Booking(user_id=user1.id, rental_id=rental3.id, start_date=datetime(2023, 10, 20), end_date=datetime(2023, 10, 23))
-    booking2 = Booking(user_id=user1.id, rental_id=rental2.id, start_date=datetime(2023, 10, 20), end_date=datetime(2023, 10, 23))
+    booking2 = Booking(user_id=user3.id, rental_id=rental2.id, start_date=datetime(2023, 10, 20), end_date=datetime(2023, 10, 23))
     booking3 = Booking(user_id=user1.id, rental_id=rental1.id, start_date=datetime(2023, 10, 20), end_date=datetime(2023, 10, 23))
     
     

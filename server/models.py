@@ -15,9 +15,9 @@ class User(db.Model, SerializerMixin):
     _password_hash = db.Column(db.String)
     bookings = db.relationship('Booking', backref='user', cascade='all, delete-orphan')
    
+    serializer_rules= ('-bookings.user',)
 
-
-    serialize_rules=()
+   
     
 
     @hybrid_property
@@ -49,6 +49,10 @@ class Rental(db.Model, SerializerMixin):
     image = db.Column(db.String)
     bookings = db.relationship('Booking', backref='rental', cascade='all, delete-orphan')
 
+
+    serializer_rules = ('-bookings.rental',)
+
+
     def __repr__(self):
         return f'<Rental {self.name}, ${self.price}/per night, {self.location}>'
 
@@ -61,6 +65,7 @@ class Booking(db.Model, SerializerMixin):
     start_date = db.Column(db.DateTime)
     end_date = db.Column(db.DateTime)
 
+    serializer_rules = ('-user.bookings', '-rental.bookings',)
 
     def __repr__(self):
         return f'<Booking {self.id}, {self.start_date}, {self.end_date}>'

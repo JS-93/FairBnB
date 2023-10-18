@@ -5,7 +5,7 @@
 # Remote library imports
 from flask import request, session
 from flask_restful import Resource
-
+from datetime import datetime
 # Local imports
 from config import app, db, api
 from models import *
@@ -65,6 +65,7 @@ class Login(Resource):
         
         session['user_id'] = user.id
         return {'message': 'Logged in successfully.'}, 200
+        
 # check session endpoint to make sure the user is still logged in
 class CheckSession(Resource):
     def get(self):
@@ -84,24 +85,78 @@ class Logout(Resource):
 # quick endpoint check to see if userbyid works
 class UserById(Resource):
     def get(self, id):
-        user = User.query.filter(User.id == id).first()
+        user = User.query.get(id)
         if not user:
             return {'error': 'user not found'}, 404
-        return user.to_dict(), 200
+        return user.to_dict(rules=('-bookings',)), 200
+
+
 # endpoint to get all users
 class Users(Resource):
     def get(self):
-        users = [user.to_dict() for user in User.query.all()]
+        users = [user.to_dict(rules=('-bookings',)) for user in User.query.all()]
         return users, 200
 
 
-# endpoint for getting all rentals for rental page
+# endpoint for getting all rentals for rental page and creating one
 class Rentals(Resource):
     def get(self):
         rentals = [rental.to_dict(rules=('-bookings',)) for rental in Rental.query.all()]
         return rentals, 200
+    def post(self):
+        data = request.get_json()
+        try:
+            new_rental = Rental(
+                name = data['name'],
+                location = data['location'],
+                price = data['price'],
+                description = data['description'],
+                image = data['image']
+            )
+            db.session.add(new_rental)
+            db.session.commit()
+            return new_rental.to_dict(rules=('-bookings',)), 201
+        except ValueError:
+            return {'errors': ['validation errors']}, 400
+
+# endpoint for getting all bookings
+class Bookings(Resource):
+    def get(self):
+        bookings = [booking.to_dict(rules=('-user', '-rental',)) for booking in Booking.query.all()]
+        return bookings, 200
+    def post(self):
+        data = request.get_json()
+        try:
+            start_date = datetime.fromisoformat(data['start_date'].replace('Z', '+00:00'))
+            end_date = datetime.fromisoformat(data['end_date'].replace('Z', '+00:00'))
 
 
+            new_booking = Booking(
+                user_id = data['user_id'],
+                rental_id = data['rental_id'],
+                start_date = start_date,
+                end_date = end_date
+            )
+            
+            db.session.add(new_booking)
+            db.session.commit()
+            return new_booking.to_dict(rules=('-user', '-rental',))
+        except ValueError:
+            return {'errors': ['validation errors']}, 400
+# deletes booking from user
+class BookingsById(Resource):
+    def delete(self, id):
+        booking = Booking.query.get(id)
+        if not booking:
+            return {'error': 'booking not found'}, 404
+        db.session.delete(booking)
+        db.session.commit()
+        return {'message': 'Booking deleted successfully'}, 204
+    
+   
+api.add_resource(BookingsById, '/bookings/<int:id>')
+api.add_resource(Users, '/users')
+api.add_resource(Bookings, '/bookings')
 api.add_resource(Rentals, '/rentals')    
 api.add_resource(UserById, '/users/<int:id>')
 api.add_resource(CheckSession, '/check_session')

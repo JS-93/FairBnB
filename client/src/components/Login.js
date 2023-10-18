@@ -12,7 +12,7 @@ const Login = ( { onLogin }) => {
             username: '',
             password: '',
         },
-        onSubmit: (values) => {
+        onSubmit: values => {
             fetch('/login', {
                 method: 'POST',
                 headers: {

@@ -1,8 +1,32 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
+import BookingContainer from "./BookingsContainer";
 
+const Bookings = ( { user }) => {
+    const [bookings, setBookings] = useState([])
 
-const Bookings = () => {
-    return (<><h1>Hello from Bookings</h1></>)
+    useEffect(() => {
+        fetch('/bookings')
+        .then(resp => {
+            if (!resp.ok) {
+                throw new Error(`HTTP error! Status ${resp.status}`)
+            }
+            return resp.json();
+        })
+        .then(books => {
+            setBookings(books);
+            
+        })
+        .catch(e => console.error(e))
+    }, [])
+
+    
+
+    const userBookings = bookings ? bookings.filter((book) => book.user_id === user.id) : [];
+    
+   
+    return (<div><h1>Hello from Bookings</h1>
+    <BookingContainer userBookings={userBookings} setBookings={setBookings}/>
+    </div>)
 }
 
 
