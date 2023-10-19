@@ -60,7 +60,7 @@ class Login(Resource):
         
         user = User.query.filter(User.username == username).first()
 
-        if not user or not user.authenticate(password):
+        if not user.username or not user.authenticate(password):
             return {'message': 'Invalid username or password.'}, 401
         
         session['user_id'] = user.id
@@ -89,6 +89,34 @@ class UserById(Resource):
         if not user:
             return {'error': 'user not found'}, 404
         return user.to_dict(rules=('-bookings',)), 200
+# updating the username
+    def patch(self, id):
+
+        user = User.query.get(id)
+        data = request.get_json()
+        if not user:
+            return {'error': 'user not found'}, 404
+        
+        if 'username' not in data:
+            return {'errors': ['Username missing from request']}, 400
+        
+    
+        try:
+            user.username = data['username']
+
+            db.session.add(user)
+            db.session.commit()
+            return {'message': 'Updated successfully!', 'user': user.to_dict(rules=('-bookings',))}, 202
+        except ValueError:
+            return {'errors': ['validation errors']}, 400
+# deleting the user
+    def delete(self, id):
+        user = User.query.get(id)
+        if not user:
+            return {'error': 'user not found'}, 404
+        db.session.delete(user)
+        db.session.commit()
+        return {}, 204
 
 
 # endpoint to get all users
@@ -143,7 +171,15 @@ class Bookings(Resource):
             return new_booking.to_dict(rules=('-user', '-rental',))
         except ValueError:
             return {'errors': ['validation errors']}, 400
+        
+# get booking with specific rental
+
+class BookingForRental(Resource):
+    def get(self, rental_id):
+        bookings = [booking.to_dict(rules=('-user', '-rental',)) for booking in Booking.query.filter_by(rental_id=rental_id)]
+        return bookings, 200
 # deletes booking from user
+
 class BookingsById(Resource):
     def delete(self, id):
         booking = Booking.query.get(id)
@@ -153,7 +189,7 @@ class BookingsById(Resource):
         db.session.commit()
         return {'message': 'Booking deleted successfully'}, 204
     
-   
+api.add_resource(BookingForRental, '/bookings/<int:rental_id>')  
 api.add_resource(BookingsById, '/bookings/<int:id>')
 api.add_resource(Users, '/users')
 api.add_resource(Bookings, '/bookings')

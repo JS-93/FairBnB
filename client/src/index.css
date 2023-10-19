@@ -3,5 +3,295 @@
   --header: #fff;
   --link: #61dafb;
   --text: hsla(0, 0%, 100%, 0.88);
+
 }
 
+
+
+
+/* css for the navbar */
+
+.navbar {
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+  padding: 10px 20px;
+  width: 100%;
+  background-color: #333;
+  margin-left: -30px;
+  height: 50px;
+  margin-top: -15px;
+}
+
+.navbar ul{
+  padding: 0;
+  list-style-type: none;
+  padding: 0;
+  margin: 0;
+  gap: 20px;
+  font-weight: bold;
+  display: flex;
+}
+
+.navbar li a {
+  text-decoration: none;
+  color: white;
+  padding: 5px 10px;
+  border-radius: 4px;
+}
+
+.navbar li a:hover {
+  background-color: #555;
+}
+
+.navbar h3 {
+  color: white;
+  position: absolute;
+  top: -1;
+  left: 0;
+  padding: 10px;
+  font-size: 30px;
+}
+
+/* end of navbar css */
+
+
+/* css for login page */
+
+.loginbackground {
+  background-image: url(https://drive.google.com/uc?export=view&id=10dpqkTx5TjT_qbC-DgJcZ-0Sl76X1B8O);
+  width: 100vw;
+  height: 100vh;
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-position: center center;
+  position: fixed;
+  margin-left: -8px;
+}
+
+
+
+.login {
+  
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  background: linear-gradient(rgba(188, 160, 160, 0.3), rgba(84, 122, 84, 0.6));
+  padding: 40px;
+  margin-top: 150px;
+  margin-left: auto;
+  margin-right: auto;
+  width: 30%;
+  height: 300px;
+  border-radius: 30px;
+
+}
+
+.login h1 {
+  font-weight: 200;
+}
+
+.login p {
+  font-size: 18px;
+  font-weight: 600;
+}
+
+.login form {
+  color: #ffffff;
+  letter-spacing: 0.5px;
+  outline: none;
+  border: none;
+  display: flex;
+  flex-direction: column;
+}
+.login input {
+    display: block;
+    background-color: rgba(255, 255, 255, 0.549);
+    border: none;
+    padding: 10px;
+    margin-top: 8px;
+    font-size: 14px;
+    font-weight: 600;
+}
+
+.login button {
+  margin-top: 20px;
+  border: none;
+  padding: 10px;
+  color: white;
+  background-color: rgb(179, 80, 80);
+  font-size: 15px;
+}
+
+.login button:hover {
+  cursor: pointer;
+  background-color: rgb(206, 121, 121);
+  transition: 0.2s ease-in-out;
+}
+
+.login a {
+  font-size: 20px;
+  margin-top: 25px;
+  list-style-type: none;
+  text-decoration: none;
+  color: black;
+}
+
+.login a:hover {
+  font-size: 25px;
+  transition: 0.2s ease-in;
+}
+
+/* end of login css */
+
+/* start of signup css */
+.signup {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  background: linear-gradient(rgba(188, 160, 160, 0.3), rgba(84, 122, 84, 0.6));
+  padding: 40px;
+  margin-top: 150px;
+  margin-left: auto;
+  margin-right: auto;
+  width: 30%;
+  height: 300px;
+  border-radius: 30px;
+}
+
+.signup h1 {
+  font-weight: 200;
+}
+
+.signup form {
+  color: #ffffff;
+  letter-spacing: 0.5px;
+  outline: none;
+  border: none;
+  display: flex;
+  flex-direction: column;
+}
+
+.signup input {
+
+    display: block;
+    background-color: rgba(255, 255, 255, 0.549);
+    border: none;
+    padding: 10px;
+    margin-top: 8px;
+    font-size: 14px;
+    font-weight: 600;
+
+}
+
+.signup button {
+  margin-top: 20px;
+  border: none;
+  padding: 10px;
+  color: white;
+  background-color: rgb(179, 80, 80);
+  font-size: 15px;
+}
+
+.signup button:hover {
+  cursor: pointer;
+  background-color: rgb(206, 121, 121);
+  transition: 0.2s ease-in-out;
+}
+
+.signupbackground {
+  background-image: url(https://drive.google.com/uc?export=view&id=10dpqkTx5TjT_qbC-DgJcZ-0Sl76X1B8O);
+  width: 100vw;
+  height: 100vh;
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-position: center center;
+  position: fixed;
+  margin-left: -8px;
+}
+
+.signup a {
+  font-size: 20px;
+  margin-top: 10px;
+  list-style-type: none;
+  text-decoration: none;
+  color: black;
+}
+
+/* end of signup css */
+
+/* start of homepage css */
+
+.homepagebackground {
+  background-image: url(https://drive.google.com/uc?export=view&id=12iypCYH2Sdx9pkHOi018jH6ltE8A5VsL);
+  width: 100vw;
+  height: 100vh;
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-position: center center;
+  position: fixed;
+  margin-left: -8px;
+}
+
+.homepage {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  background: linear-gradient(rgba(80, 88, 210, 0.7), rgba(50, 79, 50, 0.8));
+  padding: 40px;
+  margin-top: 20px;
+  margin-left: 190px;
+  margin-right: auto;
+  width: 28%;
+  height: 100px;
+  border-radius: 30px;
+  border: none;
+  color: white;
+}
+
+.homepage a {
+  list-style: none;
+  text-decoration: none;
+  color: white;
+}
+
+.homepage a:hover {
+  font-size: 18px;
+
+}
+
+/* homepage css finished */
+
+/* start of rentals css */
+
+/* // .rental-container ul {
+  //     list-style: none;
+  //     padding: 0;
+  //     margin: 0;
+  // }
+  
+  // .card {
+  //     background-color: #eaeaea;
+  //     border: 1px solid #ccc;
+  //     padding: 20px;
+  //     margin-bottom: 20px; /* spacing between cards */
+
+
+.cardbackground {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-image: url(https://drive.google.com/uc?export=view&id=1r_KIKPsdzZMQTpYEuh8FQgAEy7jRAsYL);
+  width: 100vw;
+  height: 100vh;
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-position: center;
+  position: fixed;
+  margin-left: -8px;
+  
+}
+  

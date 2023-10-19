@@ -8,6 +8,8 @@ import Bookings from "./Bookings";
 import Logout from "./Logout";
 import SeeRentals from "./SeeRentals";
 import AddRental from "./AddRental";
+import UpdateDelete from "./UpdateDelete";
+
 
 function App() {
   const [currentUser, setCurrentUser] = useState(null)
@@ -51,6 +53,18 @@ function App() {
       .then(user => setCurrentUser(user));
     }
   }
+
+  const handleUpdate = (response) => {
+    if (response.message === 'Updated successfully!') {
+      fetch('/check_session')
+      .then(resp => resp.json())
+      .then(user => setCurrentUser(user))
+    }
+  }
+
+  const handleDelete = () => {
+    setCurrentUser(null)
+  }
   
 
  
@@ -76,6 +90,9 @@ function App() {
         </Route>
         <Route exact path="/addrental">
         {!currentUser ? <Redirect to='/login'/> : <AddRental/>}
+        </Route>
+        <Route exact path="/updatedelete">
+        {!currentUser ? <Redirect to='/login'/> : <UpdateDelete user={currentUser} onUpdate={handleUpdate} onDelete={handleDelete}/> }
         </Route>
         <Route exact path='/logout'>
         {!currentUser ? <Redirect to='/login' /> : <Logout onLogout={handleLogout}/>}

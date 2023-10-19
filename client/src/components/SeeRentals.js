@@ -20,7 +20,7 @@ const SeeRentals = ( { user }) => {
     }, [])
 
 
-    return (<div>
+    return (<div className='cardbackground'>
         <h1>Hello from Rentals!</h1>
         <RentalsContainer user={user} rentals={rentals}/>
     </div>)

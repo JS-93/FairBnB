@@ -6,7 +6,7 @@ const BookingContainer = ({ userBookings, setBookings }) => {
     const [rentals, setRentals] = useState([])
     
     useEffect(() => {
-        const rentalIds = userBookings.map(booking => booking.rental_id)
+        
 
         fetch('/rentals')
         .then(resp => {
@@ -15,37 +15,36 @@ const BookingContainer = ({ userBookings, setBookings }) => {
             }
             return resp.json()
         })
-        .then(rentals => {
-            const filteredRentals = rentals.filter(rental => rentalIds.includes(rental.id))
-            setRentals(filteredRentals)
-
+        .then(data => {
+            setRentals(data)
+            
             
         })
         .catch(e => console.error(e))
-    }, [userBookings])
+    }, [])
 
-    console.log(userBookings)
+   
 
-    const bookingCards = rentals.map(rental => {
-        const booking = userBookings.find(booking => booking.rental_id === rental.id);
-        const startDate = booking ? booking.start_date : null;
-        const endDate = booking ? booking.end_date : null;
+    const bookingCards = userBookings.map(booking => {
+        const rental = rentals.find(r => r.id === booking.rental_id);
 
-        return <BookingCard
+        if (!rental) return null;
+
+        return (<li key={booking.id}><BookingCard
                 key={rental.id}
                 rental={rental}
                 userBookings={userBookings}
                 name={rental.name}
                 location={rental.location}
                 image={rental.image}
-                startDate={startDate}
-                endDate={endDate}
                 setBookings={setBookings}
-        />
+                startDate={booking.start_date}
+                endDate={booking.end_date}
+        /></li>)
     })
     return (<div>
         <ul>
-            <li>{bookingCards}</li>
+            {bookingCards}
         </ul>
     </div>)
 }

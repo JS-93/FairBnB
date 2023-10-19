@@ -1,5 +1,5 @@
 import React from "react"
-
+import { Link } from 'react-router-dom'
 
 
 
@@ -8,10 +8,12 @@ const Homepage = ( { user }) => {
     
    
     return(
-            <div>
-                <h1>Welcome to EZ_BNB!</h1>
+            <div className='homepagebackground'>
+            <div className='homepage'>
+                <h1>Welcome to FairBnB {user.username}!</h1>
                 <p>Your go-to website for cheap and accessible vacation rentals!</p>
-            </div>
+                <p>Check out the full list of our rentals clicking <Link to='/seerentals'>HERE</Link></p>
+            </div></div>
            
     )
 }

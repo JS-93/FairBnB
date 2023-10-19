@@ -22,28 +22,29 @@ const Signup = () => {
                 body: JSON.stringify(values),
             })
             .then(resp => {
-                if (!resp.ok) {
-                    setError('Username already taken. Please try Again!')
-                    console.error("Can't sign up")
-                    
-                }
-                return resp.json();
+                return resp.json()
+                .then(data => {
+                    if (!resp.ok) {
+                        
+                        if(data.message === 'Username already taken.') {
+                            setError('Please fill out both fields or pick a new username.');
+                            setIsSignedUp(false);
+                        } else {
+                            setError('Please pick a new username or fill out both fields.');
+                        }
+                    } else {
+                        setIsSignedUp(true)
+                        
+                    }
+                });
             })
-            .then(user => {
-                if(user) {
-                    setIsSignedUp(true)
-                }
-            })
-            .catch(e=> console.error(e))
+            .catch(e => console.error(e))
         }
     })
     
     return (
-        
-        <div>
-            
-            {error && <div>{error}</div>}
-            
+        <div className='signupbackground'>
+        <div className='signup'>  
         <h1>Sign up</h1>
         <form onSubmit={formik.handleSubmit}>
             <input
@@ -61,28 +62,12 @@ const Signup = () => {
                 placeholder='Type in password'
                 />
             <button type='submit'>Sign up</button>
-        </form>
-        {isSignedUp && <Link to='/login'>Go To Login</Link>}
-    </div>
+        </form><p>{error}</p>
+        {isSignedUp && <Link to='/login'>Thanks for signing up! Click here to login.</Link>}
+    </div></div>
 )
 }
 
 
 export default Signup
 
-// const [users, setUsers] = useState(null)
-
-// useEffect(() => {
-//     fetch('/users')
-//     .then(resp => {
-//         if (!resp.ok) {
-//             throw new Error(`HTTP error! Status ${resp.status}`)
-//         }
-//         return resp.json();
-//     })
-//     .then(data => {
-//         setUsers(data)
-//         console.log(data)
-//     })
-//     .catch(e => console.error(e))
-// }, [])

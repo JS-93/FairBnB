@@ -14,12 +14,16 @@ const RentalsContainer = ( { rentals, user } ) => {
             user={user}
         />
     })
-    return (<div>
+    return (
+    
+    <div className='cardcontainer'>
         <ul>
-            <li>{rentalCards}</li>
+            <li className='card'>{rentalCards}</li>
         </ul>
 
     </div>)
 }
 
 export default RentalsContainer
+
+

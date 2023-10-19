@@ -40,7 +40,8 @@ const Login = ( { onLogin }) => {
         }
     })
     return (
-        <div>
+        <div className='loginbackground'>
+        <div className='login'>
             <h1>Login Here</h1>
             <form onSubmit={formik.handleSubmit}>
                 <input
@@ -59,9 +60,9 @@ const Login = ( { onLogin }) => {
                 />
                 <button type="submit">Login</button>
             </form>
-            {!isLoggedIn && <h1>Username or password not found.</h1>}
-            <Link to='/signup'>New User?</Link>
-        </div>
+            {!isLoggedIn && <p>Username or password not found.</p>}
+            <Link to='/signup'>Click here to sign up</Link>
+        </div></div>
     )
 }
 

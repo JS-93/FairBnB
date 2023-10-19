@@ -1,7 +1,8 @@
-import React from "react";
+import React, { useState } from "react";
 
 
 const BookingCard = ({ userBookings, name, location, price, description, image, startDate, endDate, rental, setBookings }) => {
+    const [message, setMessage] = useState('')
 
     const handleDelete = () => {
         const currentBooking = userBookings.find(booking => booking.rental_id === rental.id)
@@ -11,7 +12,7 @@ const BookingCard = ({ userBookings, name, location, price, description, image, 
             return;
         }
 
-        const filteredBookings = userBookings.find(booking => booking.rental_id !== rental.id);
+        const filteredBookings = userBookings.filter(booking => booking.id !== currentBooking.id);
         setBookings(filteredBookings);
 
         fetch(`/bookings/${currentBooking.id}`, {
@@ -26,8 +27,10 @@ const BookingCard = ({ userBookings, name, location, price, description, image, 
         })
         .then(data => {
             
+            
         })
         .catch(e => console.error('Could not delete booking.'))
+        
     }
     return (<div>
         <h2 className='name-div'>{name}</h2>
@@ -41,6 +44,7 @@ const BookingCard = ({ userBookings, name, location, price, description, image, 
         </div>
         <p>{`${startDate} to ${endDate}`}</p>
         <button onClick={handleDelete}>Remove Booking</button>
+        <p>{message}</p>
     </div>)
 }
 

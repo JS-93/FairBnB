@@ -21,7 +21,7 @@ const Bookings = ( { user }) => {
 
     
 
-    const userBookings = bookings ? bookings.filter((book) => book.user_id === user.id) : [];
+    const userBookings = Array.isArray(bookings) ? bookings.filter((book) => book.user_id === user.id) : [];
     
    
     return (<div><h1>Hello from Bookings</h1>
