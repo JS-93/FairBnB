@@ -4,6 +4,8 @@
 
 FairBnb is a rental website clone designed to allow users to create fake rental properties so other users might be able to book them for certain dates on a calendar. The user must sign up in the application before logging in. The application is part of a full-stack project utilizing Flask-SQLAlchemy and python in the backend and React in the frontend. 
 
+* Note: any mention of user instance is the user.id and it's attributes associated with the client, (user), using the application.
+
 ## Backend Structure
 
 The app's design begins with a schema of three models: Bookings, Users, and Rentals. A user instance can book many rentals and a rental can be booked by many user instances. The schema is made in the models.py file. All models have a primary key ID associated with them.
@@ -69,7 +71,7 @@ The login component was very similar to the signup component with using formik f
 
 On the functionality in the RentalCard Component:
 
-* formatDate and parse date help to return more appealing date formatting into a JS 'Date' object.
+* formatDate and parseDate help to return more appealing date formatting into a JS 'Date' object.
 * getDatesBetween helps to get all the dates between a start and end date for the post request of a booking.
 * the useEffect hook is used for a fetch of all the bookings with a particular rental id that has a forEach loop that parses the dates using the previous function parseDate and sets the state of bookedDates to optimistically render on the calendar so a user can immediately see what dates are taken for a rental. 
 * the POST request uses formik to input the new dates when a user makes a new booking for a rental. There is initial error handling for conditional rendering using set message to see if a user has inputted both start and end dates. 
@@ -104,9 +106,8 @@ After forking and cloning this repository, run pipenv install && pipenv shell fo
 * run python seed.py to seed the database and python app.py to run the backend server.
 * from another terminal cd into the client folder and run npm start to begin the app.
 
-Thanks for taking the time to read this- first fullstack application!
 
-Reach out if you have any questions --Joe
+Reach out if you have any questions -Joe
 
 
 
