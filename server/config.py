@@ -1,6 +1,4 @@
-# Standard library imports
 
-# Remote library imports
 from flask import Flask
 from flask_cors import CORS
 from flask_bcrypt import Bcrypt
@@ -13,9 +11,8 @@ from dotenv import load_dotenv
 
 
 
-# Local imports
 load_dotenv()
-# Instantiate app, set attributes
+
 app = Flask(__name__)
 app.config['SECRET_KEY'] = os.environ.get('FLASK_SECRET_KEY')
 app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///app.db'

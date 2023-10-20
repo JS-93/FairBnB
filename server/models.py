@@ -17,9 +17,6 @@ class User(db.Model, SerializerMixin):
    
     serializer_rules= ('-bookings.user',)
 
-   
-    
-
     @hybrid_property
     def password(self):
         raise AttributeError('Cannot view password hashes.')
@@ -51,7 +48,6 @@ class Rental(db.Model, SerializerMixin):
 
 
     serializer_rules = ('-bookings.rental',)
-
 
     def __repr__(self):
         return f'<Rental {self.name}, ${self.price}/per night, {self.location}>'

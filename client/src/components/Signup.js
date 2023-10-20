@@ -9,7 +9,9 @@ const Signup = () => {
 
     const SignupSchema = Yup.object().shape({
         username: Yup.string()
-        .required('Please fill out both fields.')
+        .required('Please fill out both fields.'),
+        password: Yup.string()
+        .required('Password is required.')
     })
     
     
@@ -69,7 +71,7 @@ const Signup = () => {
                 />
             <button type='submit'>Sign up</button>
         </form><p style={{ color: 'red' }}>{error}</p>
-        <p style={{ color: 'red' }}>{formik.errors.username}</p>
+        <p style={{ color: 'red' }}>{formik.errors.username} {formik.errors.password}</p>
         {isSignedUp && <Link to='/login' className='thankstag'>Thanks for signing up! Click here to login.</Link>}
     </div></div>
 )
