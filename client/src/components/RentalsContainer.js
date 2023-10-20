@@ -18,7 +18,7 @@ const RentalsContainer = ( { rentals, user } ) => {
     
     <div className='cardcontainer'>
         <ul>
-            <li className='card'>{rentalCards}</li>
+            <li>{rentalCards}</li>
         </ul>
 
     </div>)

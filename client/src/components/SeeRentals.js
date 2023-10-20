@@ -21,7 +21,7 @@ const SeeRentals = ( { user }) => {
 
 
     return (<div className='cardbackground'>
-        <h1>Hello from Rentals!</h1>
+        <h1>Available Rentals</h1>
         <RentalsContainer user={user} rentals={rentals}/>
     </div>)
 }

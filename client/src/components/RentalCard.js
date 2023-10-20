@@ -4,9 +4,21 @@ import DatePicker from 'react-datepicker';
 import 'react-datepicker/dist/react-datepicker.css'
 
 
-const RentalCard = ({ rental, name, location, description, image, user }) => {
+const RentalCard = ({ rental, name, location, description, image, user, price }) => {
         const [message, setMessage] = useState('')
         const [bookedDates, setBookedDates] = useState([])
+
+        const formatDate = (date) => {
+            const days = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'];
+            const months = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec']
+
+            const dayName = days[date.getUTCDay()];
+            const monthName = months[date.getUTCMonth()];
+            const day = date.getUTCDate();
+            const year = date.getUTCFullYear();
+
+            return `${dayName} ${monthName} ${day} ${year}`
+        }
 
         const parseDate = (dateStr) => {
             return new Date(dateStr.replace(' ', 'T'));
@@ -74,7 +86,7 @@ const RentalCard = ({ rental, name, location, description, image, user }) => {
                     formik.setFieldValue('startDate', '');
                     formik.setFieldValue('endDate', '')
                     formik.resetForm();
-                    setMessage(`You have booked this rental from ${values.endDate} to ${values.startDate}!`)
+                    setMessage(`You have booked this rental from ${formatDate(values.endDate)} to ${formatDate(values.startDate)}!`)
                 } 
             })
             .catch(e => {
@@ -86,12 +98,13 @@ const RentalCard = ({ rental, name, location, description, image, user }) => {
        })
         
        
-    return (<div>
+    return (<div className='card'>
         <h2 className='name-div'>{name}</h2>
         <div className='image-div'>
             <img src={image} alt='rental'/>
         </div>
         <h3 className='location'>{location}</h3>
+        <h4>{`$${price} Per Night`}</h4>
         <div className='description-div'>
             <p>{description}</p>
         </div>
@@ -103,6 +116,7 @@ const RentalCard = ({ rental, name, location, description, image, user }) => {
             onChange={date => formik.setFieldValue('startDate', date)}
             selectsStart
             endDate={formik.values.endDate}
+            minDate={formik.values.startDate ? formik.values.startDate : new Date()}
             placeholderText='Select start date'
             excludeDates={bookedDates}
             />
@@ -113,12 +127,12 @@ const RentalCard = ({ rental, name, location, description, image, user }) => {
             selectsEnd
             startDate={formik.values.startDate}
             endDate={formik.values.endDate}
-            minDate={formik.values.startDate}
+            minDate={formik.values.startDate ? formik.values.startDate : new Date()}
             placeholderText='Select end date'
             excludeDates={bookedDates}
             />
         </div>
-        <button type='submit'>Book Now</button>
+        <button className='cardbutton' type='submit'>Book Now</button>
         </form>
         <p>{message}</p>
     </div>)

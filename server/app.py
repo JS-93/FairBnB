@@ -187,7 +187,7 @@ class BookingsById(Resource):
             return {'error': 'booking not found'}, 404
         db.session.delete(booking)
         db.session.commit()
-        return {'message': 'Booking deleted successfully'}, 204
+        return '', 204
     
 api.add_resource(BookingForRental, '/bookings/<int:rental_id>')  
 api.add_resource(BookingsById, '/bookings/<int:id>')

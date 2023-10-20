@@ -28,10 +28,10 @@ const BookingContainer = ({ userBookings, setBookings }) => {
     const bookingCards = userBookings.map(booking => {
         const rental = rentals.find(r => r.id === booking.rental_id);
 
-        if (!rental) return null;
+        if (!rental) return <></>;
 
         return (<li key={booking.id}><BookingCard
-                key={rental.id}
+                
                 rental={rental}
                 userBookings={userBookings}
                 name={rental.name}
@@ -42,7 +42,7 @@ const BookingContainer = ({ userBookings, setBookings }) => {
                 endDate={booking.end_date}
         /></li>)
     })
-    return (<div>
+    return (<div className='bookingcontainer'>
         <ul>
             {bookingCards}
         </ul>
