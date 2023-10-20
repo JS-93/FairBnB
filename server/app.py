@@ -3,6 +3,7 @@
 # Standard library imports
 
 # Remote library imports
+
 from flask import request, session
 from flask_restful import Resource
 from datetime import datetime
@@ -23,7 +24,6 @@ def check_if_logged_in():
     ]
     if request.endpoint not in access and (not session.get('user_id')):
         return {'error': '401 unauthorized'}, 401
-
 
 # signup endpoint to create new user
 class Signup(Resource):
