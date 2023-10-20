@@ -13,7 +13,7 @@ class User(db.Model, SerializerMixin):
     id = db.Column(db.Integer, primary_key = True)
     username = db.Column(db.String, unique = True, nullable = False)
     _password_hash = db.Column(db.String)
-    bookings = db.relationship('Booking', backref='user', cascade='all, delete-orphan')
+    bookings = db.relationship('Booking', back_populates='user', cascade='all, delete-orphan')
    
     serializer_rules= ('-bookings.user',)
 
@@ -44,7 +44,8 @@ class Rental(db.Model, SerializerMixin):
     price = db.Column(db.Integer)
     description = db.Column(db.String)
     image = db.Column(db.String)
-    bookings = db.relationship('Booking', backref='rental', cascade='all, delete-orphan')
+    bookings = db.relationship('Booking', back_populates='rental', cascade='all, delete-orphan')
+
 
 
     serializer_rules = ('-bookings.rental',)
@@ -60,6 +61,9 @@ class Booking(db.Model, SerializerMixin):
     rental_id = db.Column(db.Integer, db.ForeignKey('rentals.id'))
     start_date = db.Column(db.DateTime)
     end_date = db.Column(db.DateTime)
+
+    user = db.relationship('User', back_populates='bookings')
+    rental = db.relationship('Rental', back_populates='bookings')
 
     serializer_rules = ('-user.bookings', '-rental.bookings',)
 
