@@ -43,6 +43,7 @@ const BookingContainer = ({ userBookings, setBookings }) => {
         /></li>)
     })
     return (<div className='bookingcontainer'>
+        <h1>Future Trips</h1>
         <ul>
             {bookingCards}
         </ul>

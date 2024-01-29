@@ -3,22 +3,12 @@ import { useFormik } from 'formik'
 import DatePicker from 'react-datepicker';
 import 'react-datepicker/dist/react-datepicker.css'
 
-
 const RentalCard = ({ rental, name, location, description, image, user, price }) => {
+    console.log(image)
         const [message, setMessage] = useState('')
         const [bookedDates, setBookedDates] = useState([])
-
-        const formatDate = (date) => {
-            const days = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'];
-            const months = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec']
-
-            const dayName = days[date.getUTCDay()];
-            const monthName = months[date.getUTCMonth()];
-            const day = date.getUTCDate();
-            const year = date.getUTCFullYear();
-
-            return `${dayName} ${monthName} ${day} ${year}`
-        }
+        console.log(rental)
+       
 
         const parseDate = (dateStr) => {
             return new Date(dateStr.replace(' ', 'T'));
@@ -86,7 +76,7 @@ const RentalCard = ({ rental, name, location, description, image, user, price })
                     formik.setFieldValue('startDate', '');
                     formik.setFieldValue('endDate', '')
                     formik.resetForm();
-                    setMessage(`You have booked this rental from ${formatDate(values.endDate)} to ${formatDate(values.startDate)}!`)
+                    setMessage(`Rental Booked!!!`)
                 } 
             })
             .catch(e => {
@@ -110,6 +100,8 @@ const RentalCard = ({ rental, name, location, description, image, user, price })
         </div>
         <form onSubmit={formik.handleSubmit}>
         <div className='date-select'>
+            <div className="dateSelect">
+
             <span>Start Date:</span>
             <DatePicker
             selected={formik.values.startDate}
@@ -120,6 +112,9 @@ const RentalCard = ({ rental, name, location, description, image, user, price })
             placeholderText='Select start date'
             excludeDates={bookedDates}
             />
+            </div>
+            <div className="dateSelect">
+
             <span>End Date:</span>
             <DatePicker
             selected={formik.values.endDate}
@@ -131,6 +126,7 @@ const RentalCard = ({ rental, name, location, description, image, user, price })
             placeholderText='Select end date'
             excludeDates={bookedDates}
             />
+            </div>
         </div>
         <button className='cardbutton' type='submit'>Book Now</button>
         </form>

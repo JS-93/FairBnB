@@ -24,14 +24,14 @@ def seed():
     user3.password = 'sky72'
 
     db.session.add_all([user1, user2, user3])
-    db.session.commit()
+    db.session.commit()                                                                                                                                                                
 
-    rental1 = Rental(name="Undisclosed Ridge", location="South Side, Washington", price=250, description="Secluded mountain-view cabin atop a popular ridge, STUNNING VIEWS!.", image='https://drive.google.com/uc?export=view&id=1c4DuQzUPrHP8PwbJKa1Uto-OgXrm5CA5')
-    rental2 = Rental(name="Relaxation Station", location="Campground, Oregon", price=200, description="Quiet getaway cabin- enjoy nature and the hammock of course.", image='https://drive.google.com/uc?export=view&id=1qM1NdjZxmxZqVRVfqOZNUyNnxceZwnaV')
-    rental3 = Rental(name="Lakeside Bungalow", location="Forgot Lake Name, Wyoming", price=140, description="Waterfront Cabin with a mountain ridge view and a boat for fishing!", image='https://drive.google.com/uc?export=view&id=1okGhf2vfN_X5PCSvpxSzs2jBZ8euJK8s')
-    rental4 = Rental(name="Guilt Free Retreat", location="Some County, Idaho", price=60, description='100 percent solar powered gem. Clear your wasteful conscience with this energy saver.', image='https://drive.google.com/uc?export=view&id=1Rs9T4YLsWSej6kUvtXkaadPIfikcHbWY')
-    rental5 = Rental(name="Cold Plains Tiny Home", location="Middle of Nowhere, Nebraska", price=30, description="Ain't much, but you won't have any trouble with crowds.", image='https://drive.google.com/uc?export=view&id=16ei4fuef4QCMUoIGtf5BDd-j8QYx8ZhG')
-    rental6 = Rental(name="Basic Cabin in the Woods", location="Random Forest, Maine", price=20, description="Only cabin out here for miles! Isn't that great? ...", image='https://drive.google.com/uc?export=view&id=10dN_teQqK4M8foSMmugv7-9VFORZUZ2b')
+    rental1 = Rental(name="Undisclosed Ridge", location="South Side, Washington", price=250, description="Secluded mountain-view cabin atop a popular ridge, STUNNING VIEWS!.", image='/pic1.jpg')
+    rental2 = Rental(name="Relaxation Station", location="Campground, Oregon", price=200, description="Quiet getaway cabin- enjoy nature and the hammock of course.", image='/pic2.jpg')
+    rental3 = Rental(name="Lakeside Bungalow", location="Forgot Lake Name, Wyoming", price=140, description="Waterfront Cabin with a mountain ridge view and a boat for fishing!", image='/pic3.jpg')
+    rental4 = Rental(name="Guilt Free Retreat", location="Some County, Idaho", price=60, description='100 percent solar powered gem. Clear your wasteful conscience with this energy saver.', image='/pic4.jpg')
+    rental5 = Rental(name="Cold Plains Tiny Home", location="Middle of Nowhere, Nebraska", price=30, description="Ain't much, but you won't have any trouble with crowds.", image='/pic5.jpg')
+    rental6 = Rental(name="Basic Cabin in the Woods", location="Random Forest, Maine", price=20, description="Only cabin out here for miles! Isn't that great? ...", image='/pic6.jpg')
     db.session.add_all([rental1, rental2, rental3, rental4, rental5, rental6])
     db.session.commit()
 

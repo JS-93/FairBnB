@@ -1,9 +1,11 @@
 import React from "react";
+import { useState } from 'react'; 
 import { useFormik } from 'formik';
 import * as Yup from 'yup';
 
 
 const AddRental = () => {
+    const [success, setSuccess] = useState(false);
   
 
     const RentalSchema = Yup.object().shape({
@@ -17,7 +19,6 @@ const AddRental = () => {
         description: Yup.string()
         .required('Description is required'),
         image: Yup.string()
-        .url('Must be a valid URL')
         .required('Image URL is required')
     })
 
@@ -47,6 +48,10 @@ const AddRental = () => {
             })
             .then(resp => resp.json())
             .then(data => {
+                setSuccess(true)
+                setTimeout(() => {
+                    setSuccess(false)
+                }, 3000)
                 formik.resetForm();
             })
             .catch(e => console.error(e));
@@ -63,6 +68,7 @@ const AddRental = () => {
                 onChange={formik.handleChange}
                 placeholder='Name of Rental'
             />
+             <p className="error" style={{ color: "red" }}> {formik.errors.name}</p>
             
             <input
                 type='text'
@@ -71,6 +77,7 @@ const AddRental = () => {
                 onChange={formik.handleChange}
                 placeholder='Name of Location'
             />
+             <p className="error1" style={{ color: "red" }}> {formik.errors.location}</p>
             
              <input
                 type='integer'
@@ -79,14 +86,18 @@ const AddRental = () => {
                 onChange={formik.handleChange}
                 placeholder='Amount per night'
             />
+            <p className="error2" style={{ color: "red" }}> {formik.errors.price}</p>
            
              <textarea
                 type='text'
                 name='description'
+                className="description"
                 value={formik.values.description}
                 onChange={formik.handleChange}
                 placeholder='Description of property'
             />
+            <p className="error3" style={{ color: "red" }}> {formik.errors.description}</p>
+           
             
              <input
                 type='text'
@@ -95,15 +106,10 @@ const AddRental = () => {
                 onChange={formik.handleChange}
                 placeholder='URL of Image'
             />
-            
+               <p className="error4" style={{ color: "red" }}> {formik.errors.image}</p>
             <button className='formbutton' type="Submit">Add Rental</button>
-            <div className='errors'>
-            <p style={{ color: "red" }}> {formik.errors.name}</p>
-            <p style={{ color: "red" }}> {formik.errors.location}</p>
-            <p style={{ color: "red" }}> {formik.errors.price}</p>
-            <p style={{ color: "red" }}> {formik.errors.description}</p>
-            <p style={{ color: "red" }}> {formik.errors.image}</p>
-            </div>
+            {success && <p className="success">New rental added!</p>}
+            
         </form>
         </div></div>
       )

@@ -7,27 +7,39 @@
 }
 
 
+html, body {
+  margin: 0;
+  padding: 0;
+  width: 100vw;
+  height: 100vh;
+  overflow: auto;
+}
+
+
 
 
 /* css for the navbar */
 
 .navbar {
+  position: absolute;
+  z-index: 100;
+  left: 0;
+  top: 0;
   display: flex;
   justify-content: flex-end;
   align-items: center;
-  padding: 10px 20px;
-  width: 100%;
+  width: 100vw;
   background-color: #333;
-  margin-left: -30px;
+  overflow: hidden;
   height: 50px;
-  margin-top: -15px;
+  
 }
 
 .navbar ul{
-  padding: 0;
+ 
   list-style-type: none;
   padding: 0;
-  margin: 0;
+  margin: 30px;;
   gap: 20px;
   font-weight: bold;
   display: flex;
@@ -60,14 +72,15 @@
 
 .loginbackground {
   background-color: grey;
-  background-image: url(https://drive.google.com/uc?export=view&id=10dpqkTx5TjT_qbC-DgJcZ-0Sl76X1B8O);
+  background-image: url('./pics/pic8.jpg');
   width: 100vw;
   height: 100vh;
   background-size: cover;
+  overflow-x: hidden;
   background-repeat: no-repeat;
   background-position: center center;
   position: fixed;
-  margin-left: -8px;
+  
 }
 
 
@@ -203,14 +216,14 @@
 }
 
 .signupbackground {
-  background-image: url(https://drive.google.com/uc?export=view&id=10dpqkTx5TjT_qbC-DgJcZ-0Sl76X1B8O);
+  background-image: url('./pics/pic8.jpg');
   width: 100vw;
   height: 100vh;
   background-size: cover;
   background-repeat: no-repeat;
   background-position: center center;
   position: fixed;
-  margin-left: -8px;
+
 }
 
 .signup a {
@@ -233,14 +246,15 @@
 
 .homepagebackground {
   background-color: rgb(178, 164, 164);
-  background-image: url(https://drive.google.com/uc?export=view&id=12iypCYH2Sdx9pkHOi018jH6ltE8A5VsL);
+  background-image: url('pics/pic9.jpg');
   width: 100vw;
   height: 100vh;
+  overflow: hidden;
   background-size: cover;
   background-repeat: no-repeat;
   background-position: center center;
   position: fixed;
-  margin-left: -8px;
+
 }
 
 
@@ -251,7 +265,7 @@
   align-items: center;
   background: linear-gradient(rgba(80, 88, 210, 0.7), rgba(50, 79, 50, 0.8));
   padding: 40px;
-  margin-top: 20px;
+  margin-top: 70px;
   margin-left: 190px;
   margin-right: auto;
   width: 28%;
@@ -281,27 +295,31 @@
  display: flex;
  flex-direction: column;
  align-items: center;
- padding: 20px;
  background-color: #c0d3c5;
- margin-left: -8px;
- height: 1200vh;
+
+}
+.cardbackground h1 {
+  font-size: 50px;
+  padding: 15px;
+  margin-top: 80px;
+  margin-left: 30px;
 }
 
 .cardcontainer, .cardcontainer ul {
   display: flex;
   flex-direction: column;
   align-items: center;
-  width: 100%;
   margin-top: 20px;
   list-style: none;
   text-decoration: none;
+  
 }
 
 .card {
   background: linear-gradient(rgba(188, 160, 160, 0.3), rgba(84, 122, 84, 0.6));
   box-shadow: 0 4px 6px rgba(0, 0, 0, 0.9);
-  width: 1100px;
-  margin-bottom: 20px;
+  padding: 40px;
+  margin-bottom: 50px;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -312,6 +330,10 @@
 .card input {
   border: 1px solid #ccc;
   padding: 5px;
+}
+
+.dateSelect {
+  margin-left: 20px;
 }
 
 .image-div, img {
@@ -363,33 +385,34 @@
   display: flex;
   flex-direction: column;
   align-items: center;
-  padding: 20px;
   background-color: #c0d3c5;
-  margin-left: -8px;
-  height: 600vh;
-  
-  
+  height: 100vh;
+  overflow-y: auto;
 }
 
 .bookingcontainer {
-  
+  margin-top: 50px;
   display: flex;
+  flex-direction: column;
+  text-align: center;
   align-items: center;
   justify-content: center;
-  border: none;
-  width: 800px;;
+}
+
+.bookingcontainer h1 {
+  margin-left: 30px;
+  font-size: 50px;
+  padding: 15px;
+  
 }
 
 .bookingcontainer ul {
+  display: flex;
+  flex-direction: column;
   list-style-type: none;
 }
 
-.bookingcard {
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-}
+
 
 .bookingbutton {
   width: 200px;
@@ -406,6 +429,10 @@
   cursor: pointer;
 }
 
+.bookingcard {
+  margin: 50px;
+}
+
 /* end of bookings css */
 
 /* start of rental form css */
@@ -415,15 +442,14 @@
   flex-direction: column;
   align-items: center;
   justify-content: center; 
-  padding: 20px;
   width: 100vw;
   height: 100vh;
-  overflow-y: hidden;
   background-color: #c0d3c5;
 }
 
 .formcontainer {
   display: flex;
+  margin: auto;
   flex-direction: column;
   align-items: center;
   justify-content: center;
@@ -481,20 +507,7 @@ textarea:placeholder{
   margin-top: -550px;
 }
 
-.errors {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  border: none;
-  position: absolute;
-  top: 0;
-  left: 0;
-  margin-top: 150px;
-  margin-left: 80px;
-  height: 270px;
-  width: 250px;
-  font-weight: 200;
-}
+
 
 /* end of form css */
 
@@ -591,11 +604,15 @@ textarea:placeholder{
   background: linear-gradient(rgba(188, 160, 160, 0.3), rgba(84, 122, 84, 0.6));
   border-radius: 15px;
   box-shadow: 0px 10px 25px rgba(0, 0, 0, 0.1);
-  overflow: hidden; /* Added in case there are child elements breaking the bounds */
+  overflow: hidden;
+  text-align: center;
   padding: 20px;
   margin: 0 auto;
   margin-top: -120px;
-  
+}
+
+.returnwindow p {
+  line-height: 30px;
 }
 
 .returnwindow button {
@@ -631,3 +648,45 @@ textarea:placeholder{
 
 /* end of update background */
 
+/* errors */
+.error {
+  position: absolute;
+  top: 330px;
+}
+
+.error1 {
+  position: absolute;
+  top: 390px;
+  
+}
+
+.error2 {
+  position: absolute;
+  top: 460px;
+}
+
+.error3 {
+  position: absolute;
+  top: 540px;
+}
+
+.error4 {
+  position: absolute;
+  top: 610px;
+}
+
+
+.description {
+  font-family: 'Helvetica';
+  font-size: 14px;
+  resize: none;
+}
+
+
+.success {
+  font-family: 'Helvetica';
+  position: absolute;
+  top: 750px;
+  margin-left: 85px;
+  
+}

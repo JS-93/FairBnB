@@ -4,7 +4,7 @@
 
 # Remote library imports
 
-from flask import request, session
+from flask import request, session, send_from_directory
 from flask_restful import Resource
 from datetime import datetime
 # Local imports
@@ -14,6 +14,7 @@ from models import *
 
 
 # Views go here!
+
 
 @app.before_request
 def check_if_logged_in():
@@ -188,6 +189,10 @@ class BookingsById(Resource):
         db.session.delete(booking)
         db.session.commit()
         return '', 204
+
+@app.route('/pics/<filename>')
+def serve_pic(filename):
+    return send_from_directory('pics', filename)
     
 api.add_resource(BookingForRental, '/bookings/<int:rental_id>')  
 api.add_resource(BookingsById, '/bookings/<int:id>')
@@ -201,6 +206,6 @@ api.add_resource(Login, '/login')
 api.add_resource(Signup, '/signup')
 
 if __name__ == '__main__':
-    app.run(port=5555, debug=True)
+    app.run(port=5000, debug=True)
 
 

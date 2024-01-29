@@ -24,7 +24,7 @@ const Bookings = ( { user }) => {
     const userBookings = Array.isArray(bookings) ? bookings.filter((book) => book.user_id === user.id) : [];
     
    
-    return (<div className='bookingsbackground'><h1>Future Trips</h1>
+    return (<div className='bookingsbackground'>
     <BookingContainer userBookings={userBookings} setBookings={setBookings}/>
     </div>)
 }
